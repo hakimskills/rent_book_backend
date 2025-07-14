@@ -23,6 +23,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -47,4 +48,15 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    // 📚 Books owned by the user
+public function books()
+{
+    return $this->hasMany(Book::class);
+}
+
+// 🧾 Books rented by the user
+public function rents()
+{
+    return $this->hasMany(Rent::class);
+}
 }

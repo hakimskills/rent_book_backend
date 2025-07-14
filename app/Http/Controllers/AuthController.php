@@ -12,24 +12,27 @@ class AuthController extends Controller
 {
     // 🔐 Register a new user
     public function register(Request $request)
-    {
-        $request->validate([
-            'name'     => 'required|string|max:255',
-            'email'    => 'required|email|unique:users,email',
-            'password' => 'required|string|min:6|confirmed',
-        ]);
+{
+    $request->validate([
+        'name'     => 'required|string|max:255',
+        'email'    => 'required|email|unique:users,email',
+        'password' => 'required|string|min:6|confirmed',
+        'role'     => 'required|in:reader,book_owner', // 👈 Disallow 'admin'
+    ]);
 
-        $user = User::create([
-            'name'     => $request->name,
-            'email'    => $request->email,
-            'password' => bcrypt($request->password),
-        ]);
+    $user = User::create([
+        'name'     => $request->name,
+        'email'    => $request->email,
+        'password' => bcrypt($request->password),
+        'role'     => $request->role,
+    ]);
 
-        return response()->json([
-            'user'  => $user,
-            'token' => $user->createToken('auth_token')->plainTextToken,
-        ]);
-    }
+    return response()->json([
+        'user'  => $user,
+        'token' => $user->createToken('auth_token')->plainTextToken,
+    ]);
+}
+
 
     // 🔑 Login existing user
     public function login(Request $request)

@@ -4,6 +4,9 @@ services:
   laravelapp:
     container_name: laravelapp
     build: .
+    working_dir: /var/www
+    volumes:
+      - .:/var/www            # ✅ Sync code changes
     ports:
       - "8000:8000"
     env_file:

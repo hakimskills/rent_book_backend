@@ -1,0 +1,18 @@
+# Ignore node_modules and vendor (they will be installed in container)
+node_modules
+vendor
+
+# Ignore storage link (created inside container)
+public/storage
+
+# Ignore environment/config/local files
+.env
+.env.*.local
+
+# Ignore OS junk files
+.DS_Store
+*.log
+
+# Ignore IDE files
+.idea
+.vscode
